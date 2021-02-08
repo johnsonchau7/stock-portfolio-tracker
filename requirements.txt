@@ -1,0 +1,7 @@
+django
+gunicorn
+django-on-heroku
+pytz
+psycopg2
+dj-database-url
+whitenoise
