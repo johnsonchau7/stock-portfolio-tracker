@@ -5,13 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Stock Portfolio Tracker</title>
+    <title>Portfolio.io</title>
 
-    <meta name="description" content="Source code generated using layoutit.com">
-    <meta name="author" content="LayoutIt!">
-
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
   </head>
   <body>
@@ -22,60 +19,75 @@
 
 
           <!-- Add stock form -->
-    			<div class="modal fade" id="modal-container-932407" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    			<div class="modal fade" id="stockpage-addstockformmodal-1" role="dialog" aria-labelledby="stockpage-addstockformmodallabel-1" aria-hidden="true">
     				<div class="modal-dialog" role="document">
     					<div class="modal-content">
     						<div class="modal-header">
-    							<h5 class="modal-title" id="myModalLabel">
+    							<h5 class="modal-title">
     								Add A Stock
     							</h5>
-    							<button type="button" class="close" data-dismiss="modal">
-    								<span aria-hidden="true">×</span>
-    							</button>
+
+    							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     						</div>
     						<div class="modal-body">
-                  <form role="form">
+                  <form role="form" id="stockpage-addstockform-1">
             				<div class="form-group">
 
-            					<label for="exampleInputEmail1">
+            					<label for="stockpage-addstockticker-1">
             						Stock Ticker:
             					</label>
-            					<input type="email" class="form-control" id="exampleInputEmail1">
+
+            					<input type="text" class="form-control" id="stockpage-addstockticker-2">
+
             				</div>
+
             				<div class="form-group">
 
-            					<label for="exampleInputPassword1">
+            					<label for="stockpage-adddatepurchased-1">
             						Date Purchased:
             					</label>
-            					<input type="password" class="form-control" id="exampleInputPassword1">
+
+            					<input type="text" class="form-control" id="stockpage-adddatepurchased-2" placeholder="MM/DD/YYYY">
+
             				</div>
+
                     <div class="form-group">
 
-            					<label for="exampleInputPassword1">
+            					<label for="stockpage-addaverageprice-1">
             						Average Price:
             					</label>
-            					<input type="password" class="form-control" id="exampleInputPassword1">
+
+            					<input type="text" class="form-control" id="stockpage-addaverageprice-2">
+
             				</div>
+
                     <div class="form-group">
 
-            					<label for="exampleInputPassword1">
+            					<label for="stockpage-addquantity-1">
             						Quantity:
             					</label>
-            					<input type="password" class="form-control" id="exampleInputPassword1">
+
+            					<input type="text" class="form-control" id="stockpage-addquantity-2">
+
             				</div>
+
                     <div class="form-group">
 
-            					<label for="exampleInputPassword1">
+            					<label for="stockpage-addcurrency-1">
             						Currency:
             					</label>
-                      <select class="form-control">
+
+                      <select class="form-select" id="stockpage-addcurrency-2">
                         <option value="AUD" selected>AUD</option>
                         <option value="USD">USD</option>
                       </select>
+
             				</div>
+
             				<button type="submit" class="btn btn-primary">
             					Add
             				</button>
+
             			</form>
     						</div>
     					</div>
@@ -84,53 +96,73 @@
 
 
           <!-- Edit stock form -->
-      		<div class="modal fade" id="modal-container-720700" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      		<div class="modal fade" id="stockpage-editstockformmodal-1" role="dialog" aria-labelledby="stockpage-editstockformmodallabel-1" aria-hidden="true">
       			<div class="modal-dialog" role="document">
       				<div class="modal-content">
       					<div class="modal-header">
-      						<h5 class="modal-title" id="myModalLabel">
+
+      						<h5 class="modal-title">
       							Edit Stock Details
       						</h5>
-      						<button type="button" class="close" data-dismiss="modal">
-      							<span aria-hidden="true">×</span>
-      						</button>
+
+      						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
       					</div>
       					<div class="modal-body">
                   <form role="form">
             				<div class="form-group">
 
-            					<label for="exampleInputEmail1">
+            					<label for="stockpage-editstockticker-1">
             						Stock Ticker:
             					</label>
-            					<input type="email" class="form-control" id="exampleInputEmail1">
+
+            					<input type="text" class="form-control" id="stockpage-editstockticker-2">
+
             				</div>
             				<div class="form-group">
 
-            					<label for="exampleInputPassword1">
+            					<label for="stockpage-editdatepurchased-1">
             						Date Purchased:
             					</label>
-            					<input type="password" class="form-control" id="exampleInputPassword1">
+
+            					<input type="text" class="form-control" id="stockpage-editdatepurchased-2" placeholder="MM/DD/YYYY">
+
             				</div>
                     <div class="form-group">
 
-            					<label for="exampleInputPassword1">
+            					<label for="stockpage-editaverageprice-1">
             						Average Price:
             					</label>
-            					<input type="password" class="form-control" id="exampleInputPassword1">
+
+            					<input type="text" class="form-control" id="stockpage-editaverageprice-2">
+
             				</div>
                     <div class="form-group">
 
-            					<label for="exampleInputPassword1">
+            					<label for="stockpage-editquantity-1">
+            						Quantity:
+            					</label>
+
+            					<input type="text" class="form-control" id="stockpage-editquantity-2">
+
+            				</div>
+                    <div class="form-group">
+
+            					<label for="stockpage-editcurrency-1">
             						Currency:
             					</label>
-                      <select class="form-control">
+
+                      <select class="form-select" id="stockpage-editcurrency-2">
                         <option value="AUD" selected>AUD</option>
                         <option value="USD">USD</option>
                       </select>
+
             				</div>
+
             				<button type="submit" class="btn btn-primary">
             					Save Changes
             				</button>
+
             			</form>
       					</div>
       				</div>
@@ -139,36 +171,43 @@
 
 
           <!-- Add profit adjustments form -->
-          <div class="modal fade" id="modal-container-725334" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal fade" id="stockpage-addprofitmodal-1" role="dialog" aria-labelledby="stockpage-addprofitmodallabel-1" aria-hidden="true">
     				<div class="modal-dialog" role="document">
     					<div class="modal-content">
     						<div class="modal-header">
-    							<h5 class="modal-title" id="myModalLabel">
+
+    							<h5 class="modal-title">
     								Add Profit Adjustments
     							</h5>
-    							<button type="button" class="close" data-dismiss="modal">
-    								<span aria-hidden="true">×</span>
-    							</button>
+
+    							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
     						</div>
     						<div class="modal-body">
-                  <form role="form">
+                  <form role="form" id="stockpage-addprofitform-1">
             				<div class="form-group">
 
-            					<label for="exampleInputEmail1">
+            					<label for="stockpage-addprofitfromsold-1">
             						Profit From Sold:
             					</label>
-            					<input type="email" class="form-control" id="exampleInputEmail1">
+
+            					<input type="text" class="form-control" id="stockpage-addprofitfromsold-2">
+
             				</div>
             				<div class="form-group">
 
-            					<label for="exampleInputPassword1">
+            					<label for="stockpage-addprofitfromdividends-1">
             						Profit From Dividends:
             					</label>
-            					<input type="password" class="form-control" id="exampleInputPassword1">
+
+            					<input type="text" class="form-control" id="stockpage-addprofitfromdividends-2">
+
             				</div>
+
             				<button type="submit" class="btn btn-primary">
             					Save Changes
             				</button>
+
             			</form>
     						</div>
     					</div>
@@ -176,121 +215,139 @@
           </div>
 
 
-          <!-- header -->
+          <!-- title -->
     			<div class="row">
     				<div class="col-md-11">
+
     					<h3>
-    						Stock Portfolio Tracker
+    						Portfolio.io
     					</h3>
 
     				</div>
+
     				<div class="col-md-1">
     					<button type="button" class="btn btn-md btn-primary">
     						Logout
     					</button>
     				</div>
+
     			</div>
 
           <hr>
 
-
-          <!-- stocks -->
+          <!-- stock configuration buttons -->
           <div class="row">
     				<div class="col-md-6">
-              <button type="button" class="btn btn-md btn-primary" id="modal-932407" href="#modal-container-932407" role="button" class="btn" data-toggle="modal">Add A Stock</button>
+
+              <button type="button" class="btn btn-md btn-primary" id="stockpage-addstockbutton-1" data-bs-target="#stockpage-addstockformmodal-1" role="button" class="btn" data-bs-toggle="modal">Add A Stock</button>
+
     				</div>
+
     				<div class="col-md-6">
-              <button type="button" class="btn btn-md btn-primary">
+
+              <button type="button" class="btn btn-md btn-primary" id="stockpage-viewaudbutton-1">
     						View AUD Market Value
     					</button>
-              <button type="button" class="btn btn-md btn-primary">
+
+              <button type="button" class="btn btn-md btn-primary" id="stockpage-viewnativebutton-1">
     						View Local Market Value
     					</button>
+
+    				</div>
+    			</div>
+
+          <!-- stock information table -->
+          <div class="row">
+    				<div class="col-md-12">
+              <table class="table table-bordered table-hover" id="stockpage-stocktable-1">
+        				<thead>
+        					<tr>
+        						<th>
+        							Date Purchased
+        						</th>
+        						<th>
+        							Code
+        						</th>
+        						<th>
+        							Quantity
+        						</th>
+        						<th>
+        							Average Price
+        						</th>
+                    <th>
+        							Market Price
+        						</th>
+                    <th>
+        							Invested Amount
+        						</th>
+                    <th>
+        							Market Value
+        						</th>
+                    <th>
+        							Profit ($)
+        						</th>
+                    <th>
+        							Profit (%)
+        						</th>
+                    <th>
+        							Edit
+        						</th>
+        					</tr>
+        				</thead>
+        				<tbody>
+        					<tr id="stockpage-stockid-1">
+        						<td>
+        							1/1/2021
+        						</td>
+        						<td>
+        							TSLA
+        						</td>
+        						<td>
+        							10
+        						</td>
+        						<td>
+        							$850.00 AUD
+        						</td>
+                    <td>
+        							$900.00 AUD
+        						</td>
+                    <td>
+        							$8500.00 AUD
+        						</td>
+                    <td>
+        							$9000.00 AUD
+        						</td>
+                    <td>
+        							+$500.00 AUD
+        						</td>
+                    <td>
+        							+5.88%
+        						</td>
+                    <td>
+        							<a id="stockpage-editstockbutton-1" href="#stockpage-editstockformmodal-1" data-bs-toggle="modal">Edit</a>
+                      <a id="stockpage-deletestockbutton-1" href="">Delete</a>
+        						</td>
+        					</tr>
+        				</tbody>
+        			</table>
     				</div>
     			</div>
 
 
-    			<table class="table table-bordered table-hover">
-    				<thead>
-    					<tr>
-    						<th>
-    							Date Purchased
-    						</th>
-    						<th>
-    							Code
-    						</th>
-    						<th>
-    							Quantity
-    						</th>
-    						<th>
-    							Average Price
-    						</th>
-                <th>
-    							Market Price
-    						</th>
-                <th>
-    							Invested Amount
-    						</th>
-                <th>
-    							Market Value
-    						</th>
-                <th>
-    							Profit ($)
-    						</th>
-                <th>
-    							Profit (%)
-    						</th>
-                <th>
-    							Edit
-    						</th>
-    					</tr>
-    				</thead>
-    				<tbody>
-    					<tr>
-    						<td>
-    							1/1/2021
-    						</td>
-    						<td>
-    							TSLA
-    						</td>
-    						<td>
-    							10
-    						</td>
-    						<td>
-    							$850.00 AUD
-    						</td>
-                <td>
-    							$900.00 AUD
-    						</td>
-                <td>
-    							$8500.00 AUD
-    						</td>
-                <td>
-    							$9000.00 AUD
-    						</td>
-                <td>
-    							+$500.00 AUD
-    						</td>
-                <td>
-    							+5.88%
-    						</td>
-                <td>
-    							<a id="modal-720700" href="#modal-container-720700" data-toggle="modal">Edit</a>
-                  <a id="modal-720700" href="">Delete</a>
-    						</td>
-    					</tr>
-    				</tbody>
-    			</table>
 
+          <!-- summary statistics configuration buttons -->
+          <div class="row">
+    				<div class="col-md-12">
+              <button type="button" class="btn btn-md btn-primary" id="stockpage-addprofitsbutton-1" href="#stockpage-addprofitmodal-1" role="button" class="btn" data-bs-toggle="modal">
+                Add Profit Adjustments
+              </button>
+            </div>
+          </div>
 
-          <!-- summary statistics -->
-          <button type="button" class="btn btn-md btn-primary" id="modal-725334" href="#modal-container-725334" role="button" class="btn" data-toggle="modal">
-            Add Profit Adjustments
-          </button>
-
+          <!-- summary statistics table -->
     			<div class="row">
     				<div class="col-md-6">
-    					<table class="table table-bordered table-hover">
+    					<table class="table table-bordered table-hover" id="stockpage-profitstable-1">
     						<tbody>
     							<tr>
     								<th>
@@ -328,14 +385,14 @@
     					</table>
     				</div>
     				<div class="col-md-6">
-              <table class="table table-bordered table-hover">
+              <table class="table table-bordered table-hover" id="stockpage-profitstable-2">
     						<tbody>
     							<tr>
     								<th>
     									Profit From Sold
     								</th>
                     <td>
-    									$0.00 AUD
+    									+$0.00 AUD
     								</td>
     							</tr>
                   <tr>
@@ -343,7 +400,7 @@
     									Profit From Dividend
     								</th>
                     <td>
-    									$0.00 AUD
+    									+$0.00 AUD
     								</td>
     							</tr>
                   <tr>
@@ -366,12 +423,15 @@
     					</table>
     				</div>
     			</div>
+
     		</div>
     	</div>
     </div>
 
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/scripts.js"></script>
+    <!-- javascript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
+
   </body>
 </html>
