@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Stock Portfolio Tracker</title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+  </head>
+  <body>
+
+    <div class="container-fluid">
+    	<div class="row">
+    		<div class="col-md-12">
+
+
+          <!-- Add stock form -->
+    			<div class="modal fade" id="modal-container-932407" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    				<div class="modal-dialog" role="document">
+    					<div class="modal-content">
+    						<div class="modal-header">
+    							<h5 class="modal-title" id="myModalLabel">
+    								Add A Stock
+    							</h5>
+    							<button type="button" class="close" data-dismiss="modal">
+    								<span aria-hidden="true">×</span>
+    							</button>
+    						</div>
+    						<div class="modal-body">
+                  <form role="form">
+            				<div class="form-group">
+
+            					<label for="exampleInputEmail1">
+            						Stock Ticker:
+            					</label>
+            					<input type="email" class="form-control" id="exampleInputEmail1">
+            				</div>
+            				<div class="form-group">
+
+            					<label for="exampleInputPassword1">
+            						Date Purchased:
+            					</label>
+            					<input type="password" class="form-control" id="exampleInputPassword1">
+            				</div>
+                    <div class="form-group">
+
+            					<label for="exampleInputPassword1">
+            						Average Price:
+            					</label>
+            					<input type="password" class="form-control" id="exampleInputPassword1">
+            				</div>
+                    <div class="form-group">
+
+            					<label for="exampleInputPassword1">
+            						Quantity:
+            					</label>
+            					<input type="password" class="form-control" id="exampleInputPassword1">
+            				</div>
+                    <div class="form-group">
+
+            					<label for="exampleInputPassword1">
+            						Currency:
+            					</label>
+                      <select class="form-control">
+                        <option value="AUD" selected>AUD</option>
+                        <option value="USD">USD</option>
+                      </select>
+            				</div>
+            				<button type="submit" class="btn btn-primary">
+            					Add
+            				</button>
+            			</form>
+    						</div>
+    					</div>
+    				</div>
+    			</div>
+
+
+          <!-- Edit stock form -->
+      		<div class="modal fade" id="modal-container-720700" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      			<div class="modal-dialog" role="document">
+      				<div class="modal-content">
+      					<div class="modal-header">
+      						<h5 class="modal-title" id="myModalLabel">
+      							Edit Stock Details
+      						</h5>
+      						<button type="button" class="close" data-dismiss="modal">
+      							<span aria-hidden="true">×</span>
+      						</button>
+      					</div>
+      					<div class="modal-body">
+                  <form role="form">
+            				<div class="form-group">
+
+            					<label for="exampleInputEmail1">
+            						Stock Ticker:
+            					</label>
+            					<input type="email" class="form-control" id="exampleInputEmail1">
+            				</div>
+            				<div class="form-group">
+
+            					<label for="exampleInputPassword1">
+            						Date Purchased:
+            					</label>
+            					<input type="password" class="form-control" id="exampleInputPassword1">
+            				</div>
+                    <div class="form-group">
+
+            					<label for="exampleInputPassword1">
+            						Average Price:
+            					</label>
+            					<input type="password" class="form-control" id="exampleInputPassword1">
+            				</div>
+                    <div class="form-group">
+
+            					<label for="exampleInputPassword1">
+            						Currency:
+            					</label>
+                      <select class="form-control">
+                        <option value="AUD" selected>AUD</option>
+                        <option value="USD">USD</option>
+                      </select>
+            				</div>
+            				<button type="submit" class="btn btn-primary">
+            					Save Changes
+            				</button>
+            			</form>
+      					</div>
+      				</div>
+      			</div>
+      		</div>
+
+
+          <!-- Add profit adjustments form -->
+          <div class="modal fade" id="modal-container-725334" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    				<div class="modal-dialog" role="document">
+    					<div class="modal-content">
+    						<div class="modal-header">
+    							<h5 class="modal-title" id="myModalLabel">
+    								Add Profit Adjustments
+    							</h5>
+    							<button type="button" class="close" data-dismiss="modal">
+    								<span aria-hidden="true">×</span>
+    							</button>
+    						</div>
+    						<div class="modal-body">
+                  <form role="form">
+            				<div class="form-group">
+
+            					<label for="exampleInputEmail1">
+            						Profit From Sold:
+            					</label>
+            					<input type="email" class="form-control" id="exampleInputEmail1">
+            				</div>
+            				<div class="form-group">
+
+            					<label for="exampleInputPassword1">
+            						Profit From Dividends:
+            					</label>
+            					<input type="password" class="form-control" id="exampleInputPassword1">
+            				</div>
+            				<button type="submit" class="btn btn-primary">
+            					Save Changes
+            				</button>
+            			</form>
+    						</div>
+    					</div>
+    				</div>
+          </div>
+
+
+          <!-- header -->
+    			<div class="row">
+    				<div class="col-md-11">
+    					<h3>
+    						Stock Portfolio Tracker
+    					</h3>
+
+    				</div>
+    				<div class="col-md-1">
+    					<button type="button" class="btn btn-md btn-primary">
+    						Logout
+    					</button>
+    				</div>
+    			</div>
+
+          <hr>
+
+
+          <!-- stocks -->
+          <div class="row">
+    				<div class="col-md-6">
+              <button type="button" class="btn btn-md btn-primary" id="modal-932407" href="#modal-container-932407" role="button" class="btn" data-toggle="modal">Add A Stock</button>
+    				</div>
+    				<div class="col-md-6">
+              <button type="button" class="btn btn-md btn-primary">
+    						View AUD Market Value
+    					</button>
+              <button type="button" class="btn btn-md btn-primary">
+    						View Local Market Value
+    					</button>
+    				</div>
+    			</div>
+
+
+    			<table class="table table-bordered table-hover">
+    				<thead>
+    					<tr>
+    						<th>
+    							Date Purchased
+    						</th>
+    						<th>
+    							Code
+    						</th>
+    						<th>
+    							Quantity
+    						</th>
+    						<th>
+    							Average Price
+    						</th>
+                <th>
+    							Market Price
+    						</th>
+                <th>
+    							Invested Amount
+    						</th>
+                <th>
+    							Market Value
+    						</th>
+                <th>
+    							Profit ($)
+    						</th>
+                <th>
+    							Profit (%)
+    						</th>
+                <th>
+    							Edit
+    						</th>
+    					</tr>
+    				</thead>
+    				<tbody>
+    					<tr>
+    						<td>
+    							1/1/2021
+    						</td>
+    						<td>
+    							TSLA
+    						</td>
+    						<td>
+    							10
+    						</td>
+    						<td>
+    							$850.00 AUD
+    						</td>
+                <td>
+    							$900.00 AUD
+    						</td>
+                <td>
+    							$8500.00 AUD
+    						</td>
+                <td>
+    							$9000.00 AUD
+    						</td>
+                <td>
+    							+$500.00 AUD
+    						</td>
+                <td>
+    							+5.88%
+    						</td>
+                <td>
+    							<a id="modal-720700" href="#modal-container-720700" data-toggle="modal">Edit</a>
+                  <a id="modal-720700" href="">Delete</a>
+    						</td>
+    					</tr>
+    				</tbody>
+    			</table>
+
+
+          <!-- summary statistics -->
+          <button type="button" class="btn btn-md btn-primary" id="modal-725334" href="#modal-container-725334" role="button" class="btn" data-toggle="modal">
+            Add Profit Adjustments
+          </button>
+
+    			<div class="row">
+    				<div class="col-md-6">
+    					<table class="table table-bordered table-hover">
+    						<tbody>
+    							<tr>
+    								<th>
+    									Total Invested Amount
+    								</th>
+                    <td>
+    									$8500.00 AUD
+    								</td>
+    							</tr>
+                  <tr>
+    								<th>
+    									Total Market Amount
+    								</th>
+                    <td>
+    									$9000.00 AUD
+    								</td>
+    							</tr>
+                  <tr>
+    								<th>
+    									Gross Profit ($)
+    								</th>
+                    <td>
+    									+$500.00 AUD
+    								</td>
+    							</tr>
+                  <tr>
+    								<th>
+    									Gross Profit (%)
+    								</th>
+                    <td>
+    									+5.88%
+    								</td>
+    							</tr>
+    						</tbody>
+    					</table>
+    				</div>
+    				<div class="col-md-6">
+              <table class="table table-bordered table-hover">
+    						<tbody>
+    							<tr>
+    								<th>
+    									Profit From Sold
+    								</th>
+                    <td>
+    									$0.00 AUD
+    								</td>
+    							</tr>
+                  <tr>
+    								<th>
+    									Profit From Dividend
+    								</th>
+                    <td>
+    									$0.00 AUD
+    								</td>
+    							</tr>
+                  <tr>
+    								<th>
+    									Net Profit ($)
+    								</th>
+                    <td>
+    									+$500.00 AUD
+    								</td>
+    							</tr>
+                  <tr>
+    								<th>
+    									Net Profit (%)
+    								</th>
+                    <td>
+    									+5.88%
+    								</td>
+    							</tr>
+    						</tbody>
+    					</table>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
+  </body>
+</html>
