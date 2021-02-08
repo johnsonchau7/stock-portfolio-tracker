@@ -75,11 +75,9 @@ WSGI_APPLICATION = 'stock_portfolio_tracker.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
 }
+
+DATABASES['default'] = dj_database_url.config(default='postgres://eqyslipfiqgkhi:30ca8bf8e9cacd2bf29e37564e3ec645575fc6be0ddfd37f490dab9d9ee0001a@ec2-3-214-3-162.compute-1.amazonaws.com:5432/d86pfctf4u4v21')
 
 
 # Password validation
