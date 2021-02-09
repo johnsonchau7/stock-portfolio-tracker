@@ -5,3 +5,4 @@ pytz
 psycopg2
 dj-database-url
 whitenoise
+requests

@@ -30,14 +30,15 @@
     							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     						</div>
     						<div class="modal-body">
-                  <form role="form" id="stockpage-addstockform-1">
+                  <form role="form" id="stockpage-addstockform-1" method="post">
+                    {% csrf_token %}
             				<div class="form-group">
 
             					<label for="stockpage-addstockticker-1">
             						Stock Ticker:
             					</label>
 
-            					<input type="text" class="form-control" id="stockpage-addstockticker-2">
+            					<input type="text" class="form-control" name="stockpage-addstockticker-2" id="stockpage-addstockticker-2">
 
             				</div>
 
@@ -47,7 +48,7 @@
             						Date Purchased:
             					</label>
 
-            					<input type="text" class="form-control" id="stockpage-adddatepurchased-2" placeholder="MM/DD/YYYY">
+            					<input type="text" class="form-control" name="stockpage-adddatepurchased-2" id="stockpage-adddatepurchased-2" placeholder="MM/DD/YYYY">
 
             				</div>
 
@@ -57,7 +58,7 @@
             						Average Price:
             					</label>
 
-            					<input type="text" class="form-control" id="stockpage-addaverageprice-2">
+            					<input type="text" class="form-control" name="stockpage-addaverageprice-2" id="stockpage-addaverageprice-2">
 
             				</div>
 
@@ -67,7 +68,7 @@
             						Quantity:
             					</label>
 
-            					<input type="text" class="form-control" id="stockpage-addquantity-2">
+            					<input type="text" class="form-control" name="stockpage-addquantity-2" id="stockpage-addquantity-2">
 
             				</div>
 
@@ -77,14 +78,14 @@
             						Currency:
             					</label>
 
-                      <select class="form-select" id="stockpage-addcurrency-2">
+                      <select class="form-select" name="stockpage-addcurrency-2" id="stockpage-addcurrency-2">
                         <option value="AUD" selected>AUD</option>
                         <option value="USD">USD</option>
                       </select>
 
             				</div>
 
-            				<button type="submit" class="btn btn-primary">
+            				<button type="submit" class="btn btn-primary" name="stockpage-addstockbutton-1" value="addstockbutton">
             					Add
             				</button>
 
