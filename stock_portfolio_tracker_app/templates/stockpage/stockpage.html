@@ -79,8 +79,14 @@
             					</label>
 
                       <select class="form-select" name="stockpage-addcurrency-2" id="stockpage-addcurrency-2">
-                        <option value="AUD" selected>AUD</option>
-                        <option value="USD">USD</option>
+                        {% for currency in currencytable %}
+                          {% if currency.currencycode == "AUD"%}
+                            <option value="{{ currency.id }}" selected>{{ currency.currencycode }}</option>
+                          {% else %}
+                            <option value="{{ currency.id }}">{{ currency.currencycode }}</option>
+                          {% endif %}
+
+                        {% endfor %}
                       </select>
 
             				</div>
@@ -298,39 +304,25 @@
         					</tr>
         				</thead>
         				<tbody>
-        					<tr id="stockpage-stockid-1">
-        						<td>
-        							1/1/2021
-        						</td>
-        						<td>
-        							TSLA
-        						</td>
-        						<td>
-        							10
-        						</td>
-        						<td>
-        							$850.00 AUD
-        						</td>
+                  {% for stock in stocktable %}
+                    <tr id="stockpage-stockid-{{stock.stockid}}">
+                    </tr>
+                    {% with arr="stockid currencyid" %}
+                      {% for key, value in stock.items %}
+                          {% if not key in arr.split %}
+                            <td>
+                              {{ value }}
+                            </td>
+                          {% endif %}
+                      {% endfor %}
+                    {% endwith %}
+
                     <td>
-        							$900.00 AUD
+        							<a id="stockpage-stockid-{{stock.stockid}}" href="#stockpage-editstockformmodal-1" data-bs-toggle="modal">Edit</a>
+                      <a id="stockpage-stockid-{{stock.stockid}}" href="">Delete</a>
         						</td>
-                    <td>
-        							$8500.00 AUD
-        						</td>
-                    <td>
-        							$9000.00 AUD
-        						</td>
-                    <td>
-        							+$500.00 AUD
-        						</td>
-                    <td>
-        							+5.88%
-        						</td>
-                    <td>
-        							<a id="stockpage-editstockbutton-1" href="#stockpage-editstockformmodal-1" data-bs-toggle="modal">Edit</a>
-                      <a id="stockpage-deletestockbutton-1" href="">Delete</a>
-        						</td>
-        					</tr>
+                  {% endfor %}
+
         				</tbody>
         			</table>
     				</div>
@@ -357,7 +349,7 @@
     									Total Invested Amount
     								</th>
                     <td>
-    									$8500.00 AUD
+    									{{ profit_table_1_dic_formatted.totalinvestedamount }}
     								</td>
     							</tr>
                   <tr>
@@ -365,7 +357,7 @@
     									Total Market Amount
     								</th>
                     <td>
-    									$9000.00 AUD
+    									{{ profit_table_1_dic_formatted.totalmarketamount }}
     								</td>
     							</tr>
                   <tr>
@@ -373,7 +365,7 @@
     									Gross Profit ($)
     								</th>
                     <td>
-    									+$500.00 AUD
+    									{{ profit_table_1_dic_formatted.grossprofit }}
     								</td>
     							</tr>
                   <tr>
@@ -381,7 +373,7 @@
     									Gross Profit (%)
     								</th>
                     <td>
-    									+5.88%
+    									{{ profit_table_1_dic_formatted.grossprofitpercentage }}
     								</td>
     							</tr>
     						</tbody>
@@ -395,7 +387,7 @@
     									Profit From Sold
     								</th>
                     <td>
-    									+$0.00 AUD
+    									{{ profit_table_2_dic_formatted.profitfromsold }}
     								</td>
     							</tr>
                   <tr>
@@ -403,7 +395,7 @@
     									Profit From Dividend
     								</th>
                     <td>
-    									+$0.00 AUD
+    									{{ profit_table_2_dic_formatted.profitfromdividend }}
     								</td>
     							</tr>
                   <tr>
@@ -411,7 +403,7 @@
     									Net Profit ($)
     								</th>
                     <td>
-    									+$500.00 AUD
+    									{{ profit_table_2_dic_formatted.netprofit }}
     								</td>
     							</tr>
                   <tr>
@@ -419,7 +411,7 @@
     									Net Profit (%)
     								</th>
                     <td>
-    									+5.88%
+    									{{ profit_table_2_dic_formatted.netprofitpercentage }}
     								</td>
     							</tr>
     						</tbody>

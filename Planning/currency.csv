@@ -1,0 +1,169 @@
+1,AED,UAE Dirham,$
+2,AFN,Afghani,$
+3,ALL,Lek,$
+4,AMD,Armenian Dram,$
+5,ANG,Netherlands Antillian Guilder,$
+6,AOA,Kwanza,$
+7,ARS,Argentine Peso,$
+8,AUD,Australian Dollar,$
+9,AWG,Aruban Guilder,$
+10,AZN,Azerbaijanian Manat,$
+11,BAM,Convertible Marks,$
+12,BBD,Barbados Dollar,$
+13,BDT,Taka,$
+14,BGN,Bulgarian Lev,$
+15,BHD,Bahraini Dinar,$
+16,BIF,Burundi Franc,$
+17,BMD,Bermudian Dollar (customarily known as Bermuda Dollar),$
+18,BND,Brunei Dollar,$
+19,BOB BOV,Boliviano Mvdol,$
+20,BRL,Brazilian Real,$
+21,BSD,Bahamian Dollar,$
+22,BWP,Pula,$
+23,BYR,Belarussian Ruble,$
+24,BZD,Belize Dollar,$
+25,CAD,Canadian Dollar,$
+26,CDF,Congolese Franc,$
+27,CHF,Swiss Franc,$
+28,CLP CLF,Chilean Peso Unidades de fomento,$
+29,CNY,Yuan Renminbi,$
+30,COP COU,Colombian Peso Unidad de Valor Real,$
+31,CRC,Costa Rican Colon,$
+32,CUP CUC,Cuban Peso Peso Convertible,$
+33,CVE,Cape Verde Escudo,$
+34,CZK,Czech Koruna,$
+35,DJF,Djibouti Franc,$
+36,DKK,Danish Krone,$
+37,DOP,Dominican Peso,$
+38,DZD,Algerian Dinar,$
+39,EEK,Kroon,$
+40,EGP,Egyptian Pound,$
+41,ERN,Nakfa,$
+42,ETB,Ethiopian Birr,$
+43,EUR,Euro,$
+44,FJD,Fiji Dollar,$
+45,FKP,Falkland Islands Pound,$
+46,GBP,Pound Sterling,$
+47,GEL,Lari,$
+48,GHS,Cedi,$
+49,GIP,Gibraltar Pound,$
+50,GMD,Dalasi,$
+51,GNF,Guinea Franc,$
+52,GTQ,Quetzal,$
+53,GYD,Guyana Dollar,$
+54,HKD,Hong Kong Dollar,$
+55,HNL,Lempira,$
+56,HRK,Croatian Kuna,$
+57,HTG USD,Gourde US Dollar,$
+58,HUF,Forint,$
+59,IDR,Rupiah,$
+60,ILS,New Israeli Sheqel,$
+61,INR,Indian Rupee,$
+62,INR BTN,Indian Rupee Ngultrum,$
+63,IQD,Iraqi Dinar,$
+64,IRR,Iranian Rial,$
+65,ISK,Iceland Krona,$
+66,JMD,Jamaican Dollar,$
+67,JOD,Jordanian Dinar,$
+68,JPY,Yen,$
+69,KES,Kenyan Shilling,$
+70,KGS,Som,$
+71,KHR,Riel,$
+72,KMF,Comoro Franc,$
+73,KPW,North Korean Won,$
+74,KRW,Won,$
+75,KWD,Kuwaiti Dinar,$
+76,KYD,Cayman Islands Dollar,$
+77,KZT,Tenge,$
+78,LAK,Kip,$
+79,LBP,Lebanese Pound,$
+80,LKR,Sri Lanka Rupee,$
+81,LRD,Liberian Dollar,$
+82,LTL,Lithuanian Litas,$
+83,LVL,Latvian Lats,$
+84,LYD,Libyan Dinar,$
+85,MAD,Moroccan Dirham,$
+86,MDL,Moldovan Leu,$
+87,MGA,Malagasy Ariary,$
+88,MKD,Denar,$
+89,MMK,Kyat,$
+90,MNT,Tugrik,$
+91,MOP,Pataca,$
+92,MRO,Ouguiya,$
+93,MUR,Mauritius Rupee,$
+94,MVR,Rufiyaa,$
+95,MWK,Kwacha,$
+96,MXN MXV,Mexican Peso Mexican Unidad de Inversion (UDI),$
+97,MYR,Malaysian Ringgit,$
+98,MZN,Metical,$
+99,NGN,Naira,$
+100,NIO,Cordoba Oro,$
+101,NOK,Norwegian Krone,$
+102,NPR,Nepalese Rupee,$
+103,NZD,New Zealand Dollar,$
+104,OMR,Rial Omani,$
+105,PAB USD,Balboa US Dollar,$
+106,PEN,Nuevo Sol,$
+107,PGK,Kina,$
+108,PHP,Philippine Peso,$
+109,PKR,Pakistan Rupee,$
+110,PLN,Zloty,$
+111,PYG,Guarani,$
+112,QAR,Qatari Rial,$
+113,RON,New Leu,$
+114,RSD,Serbian Dinar,$
+115,RUB,Russian Ruble,$
+116,RWF,Rwanda Franc,$
+117,SAR,Saudi Riyal,$
+118,SBD,Solomon Islands Dollar,$
+119,SCR,Seychelles Rupee,$
+120,SDG,Sudanese Pound,$
+121,SEK,Swedish Krona,$
+122,SGD,Singapore Dollar,$
+123,SHP,Saint Helena Pound,$
+124,SLL,Leone,$
+125,SOS,Somali Shilling,$
+126,SRD,Surinam Dollar,$
+127,STD,Dobra,$
+128,SVC USD,El Salvador Colon US Dollar,$
+129,SYP,Syrian Pound,$
+130,SZL,Lilangeni,$
+131,THB,Baht,$
+132,TJS,Somoni,$
+133,TMT,Manat,$
+134,TND,Tunisian Dinar,$
+135,TOP,Pa'anga,$
+136,TRY,Turkish Lira,$
+137,TTD,Trinidad and Tobago Dollar,$
+138,TWD,New Taiwan Dollar,$
+139,TZS,Tanzanian Shilling,$
+140,UAH,Hryvnia,$
+141,UGX,Uganda Shilling,$
+142,USD,US Dollar,$
+143,UYU UYI,Peso Uruguayo Uruguay Peso en Unidades Indexadas,$
+144,UZS,Uzbekistan Sum,$
+145,VEF,Bolivar Fuerte,$
+146,VND,Dong,$
+147,VUV,Vatu,$
+148,WST,Tala,$
+149,XAF,CFA Franc BEAC,$
+150,XAG,Silver,$
+151,XAU,Gold,$
+152,XBA,Bond Markets Units European Composite Unit (EURCO),$
+153,XBB,European Monetary Unit (E.M.U.-6),$
+154,XBC,European Unit of Account 9(E.U.A.-9),$
+155,XBD,European Unit of Account 17(E.U.A.-17),$
+156,XCD,East Caribbean Dollar,$
+157,XDR,SDR,$
+158,XFU,UIC-Franc,$
+159,XOF,CFA Franc BCEAO,$
+160,XPD,Palladium,$
+161,XPF,CFP Franc,$
+162,XPT,Platinum,$
+163,XTS,Codes specifically reserved for testing purposes,$
+164,YER,Yemeni Rial,$
+165,ZAR,Rand,$
+166,ZAR LSL,Rand Loti,$
+167,ZAR NAD,Rand Namibia Dollar,$
+168,ZMK,Zambian Kwacha,$
+169,ZWL,Zimbabwe Dollar,$
