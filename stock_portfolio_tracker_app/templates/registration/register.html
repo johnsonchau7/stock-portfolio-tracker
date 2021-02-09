@@ -31,14 +31,15 @@
           <!-- registration form -->
           <div class="row">
             <div class="col-md-12">
-              <form role="form" id="registration-form-1">
+              <form role="form" id="registration-form-1" method="post">
+                {% csrf_token %}
         				<div class="form-group">
 
         					<label for="registration-username-1">
         						Username:
         					</label>
 
-        					<input type="text" class="form-control" id="registration-username-2">
+        					<input type="text" class="form-control" name="registration-username-2" id="registration-username-2">
 
         				</div>
         				<div class="form-group">
@@ -47,7 +48,7 @@
         						Password:
         					</label>
 
-        					<input type="password" class="form-control" id="registration-password-2">
+        					<input type="password" class="form-control" name="registration-password-2" id="registration-password-2">
 
         				</div>
                 <div class="form-group">
@@ -56,11 +57,11 @@
         						Password Confirmation:
         					</label>
 
-        					<input type="password" class="form-control" id="registration-passwordconfirmation-2">
+        					<input type="password" class="form-control" name="registration-passwordconfirmation-2" id="registration-passwordconfirmation-2">
 
         				</div>
 
-        				<button type="submit" class="btn btn-primary">
+        				<button type="submit" class="btn btn-primary" name="registration-registerbutton-1" value="register">
         					Register
         				</button>
 
@@ -71,7 +72,7 @@
           <!-- login link -->
           <div class="row">
             <div class="col-md-12">
-              Existing user? <a href="#">Login to your account</a>.
+              Existing user? <a href="{% url 'login' %}">Login to your account</a>.
             </div>
           </div>
 

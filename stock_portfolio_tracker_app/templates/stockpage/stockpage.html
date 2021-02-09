@@ -226,11 +226,13 @@
     				</div>
 
     				<div class="col-md-1">
-    					<button type="button" class="btn btn-md btn-primary">
-    						Logout
-    					</button>
+              <form role="form" id="stockpage-logoutform-1" name="stockpage-logoutform-1" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-md btn-primary" name="stockpage-logoutbutton-1" value="logout">
+      						Logout
+      					</button>
+              </form>
     				</div>
-
     			</div>
 
           <hr>
