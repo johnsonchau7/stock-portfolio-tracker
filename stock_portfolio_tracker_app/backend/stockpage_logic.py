@@ -1,6 +1,7 @@
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from yahoofinancials import YahooFinancials
 
 from ..models import Currency, Stocks, ProfitAdjustment
 
@@ -17,11 +18,10 @@ def logout_user(request):
 
 #True for valid stock, false for invalid stock
 def finance_api_get_stock_validator(stock_ticker):
-    url = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={}&interval=5min&datatype=json&apikey={}".format(stock_ticker, API_KEY)
-    stock_api_request = requests.get(url)
-    stock_api_data = stock_api_request.json()
+    request = YahooFinancials(stock_ticker)
+    data = request.get_summary_data()[stock_ticker_uppercase]
 
-    if 'Error Message' in stock_api_data:
+    if data == None:
         return False
     else:
         return True
@@ -41,7 +41,7 @@ def is_float(num):
         return False
     else:
         return True
-import datetime
+
 def is_correct_date_format(date_purchased):
     try:
         datetime.datetime.strptime(date_purchased, '%d/%m/%Y')
@@ -87,13 +87,6 @@ def create_stock_entry(request):
     quantity = int(post_request["stockpage-addquantity-2"])
     date_purchased = post_request["stockpage-adddatepurchased-2"]
 
-    print(user_id)
-    print(currency_id)
-    print(stock_ticker)
-    print(average_price)
-    print(quantity)
-    print(date_purchased)
-
     user = User.objects.get(pk=user_id)
     currency = Currency.objects.get(pk=currency_id)
 
@@ -119,12 +112,9 @@ def add_stock_handler(request):
         return True
 
 def finance_api_get_stock_price(stock_ticker):
-    url = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={}&interval=5min&datatype=json&apikey={}".format(stock_ticker, API_KEY)
-    stock_api_request = requests.get(url)
-    stock_api_data = stock_api_request.json()
-
-    current_time = stock_api_data["Meta Data"]["3. Last Refreshed"]
-    current_price = float(stock_api_data[ "Time Series (5min)"][current_time]["4. close"])
+    request = YahooFinancials(stock_ticker)
+    data = request.get_stock_price_data()[stock_ticker]
+    current_price = float(data['regularMarketPrice'])
 
     return current_price
 
@@ -135,13 +125,24 @@ def finance_api_get_exchange_rate(from_currency_id, to_currency_id):
     if from_currency_code == to_currency_code:
         return 1
     else:
-        url = "https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency={}&to_currency={}&apikey={}".format(from_currency_code, to_currency_code, API_KEY)
-        exchange_rate_api_request = requests.get(url)
-        exchange_rate_api_data = stock_api_request.json()
+        if from_currency_code == "USD":
+            from_currency_code = ""
 
-        exchange_rate = float(exchange_rate_api_data["Realtime Currency Exchange Rate"]["5. Exchange Rate"])
+        currency_code_for_request = "{}{}=X".format(from_currency_code, to_currency_code)
+        request = YahooFinancials(currency_code_for_request)
+        data = request.get_summary_data()[currency_code_for_request]
+        exchange_rate = data['ask']
 
         return exchange_rate
+
+def finance_api_get_currency_id(stock_ticker):
+    request = YahooFinancials(stock_ticker)
+    data = request.get_stock_price_data()[stock_ticker]
+    currency_code = data['currency']
+
+    currency_id = Currency.objects.filter(currency_code=currency_code)[0].id
+
+    return currency_id
 
 def generate_stock_table_array_dic(request, current_currency_id):
     user_id = request.user.id
@@ -164,30 +165,33 @@ def generate_stock_table_array_dic(request, current_currency_id):
             'stockprofitpercentage': 0,
         }
 
-        exchange_rate = finance_api_get_exchange_rate(stock.currency_id.id, current_currency_id)
+        stock_currency_id = finance_api_get_currency_id(stock.stock_ticker)
+        user_exchange_rate = finance_api_get_exchange_rate(stock.currency_id.id, current_currency_id)
+        exchange_rate = finance_api_get_exchange_rate(stock_currency_id, current_currency_id)
 
         dic['stockid'] = stock.id
         dic['currencyid'] = stock.currency_id.id
         dic['stockdatepurchased'] = stock.date_purchased
         dic['stockticker'] = stock.stock_ticker
         dic['stockquantity'] = stock.quantity
-        dic['stockaverageprice'] = stock.average_price * exchange_rate
+        dic['stockaverageprice'] = stock.average_price * user_exchange_rate
         dic['stockmarketprice'] = finance_api_get_stock_price(dic['stockticker']) * exchange_rate
-        dic['stockinvestedamount'] = dic['stockaverageprice'] * dic['stockquantity'] * exchange_rate
-        dic['stockmarketvalue'] = dic['stockmarketprice'] * dic['stockquantity'] * exchange_rate
-        dic['stockprofit'] = (dic['stockmarketvalue'] - dic['stockinvestedamount']) * exchange_rate
+        dic['stockinvestedamount'] = dic['stockaverageprice'] * dic['stockquantity']
+        dic['stockmarketvalue'] = dic['stockmarketprice'] * dic['stockquantity']
+        dic['stockprofit'] = (dic['stockmarketvalue'] - dic['stockinvestedamount'])
 
         if dic['stockinvestedamount'] == 0:
             dic['stockprofitpercentage'] = 0
         else:
-            dic['stockprofitpercentage'] = (dic['stockprofit'] / dic['stockinvestedamount']) * exchange_rate
+            dic['stockprofitpercentage'] = (dic['stockprofit'] / dic['stockinvestedamount']) * 100
 
         stock_table_array_dic.append(dic)
 
     return stock_table_array_dic
 
 
-def generate_profit_table_1_dic(stock_table_array_dic):
+def generate_profit_table_1_dic(stock_table_array_dic, current_currency_id):
+
     profit_table_1_dic = {
         'currencyid': DEFAULT_CURRENCY_ID,
         'totalinvestedamount': 0,
@@ -197,7 +201,8 @@ def generate_profit_table_1_dic(stock_table_array_dic):
     }
 
     for stock in stock_table_array_dic:
-        exchange_rate = finance_api_get_exchange_rate(stock['currencyid'], DEFAULT_CURRENCY_ID)
+        exchange_rate = finance_api_get_exchange_rate(current_currency_id, DEFAULT_CURRENCY_ID)
+
         profit_table_1_dic['totalinvestedamount'] += stock['stockinvestedamount'] * exchange_rate
         profit_table_1_dic['totalmarketamount'] += stock['stockmarketvalue'] * exchange_rate
 
@@ -206,7 +211,7 @@ def generate_profit_table_1_dic(stock_table_array_dic):
     if profit_table_1_dic['totalinvestedamount'] == 0:
         profit_table_1_dic['grossprofitpercentage'] = 0
     else:
-        profit_table_1_dic['grossprofitpercentage'] = profit_table_1_dic['grossprofit'] / profit_table_1_dic['totalinvestedamount']
+        profit_table_1_dic['grossprofitpercentage'] = (profit_table_1_dic['grossprofit'] / profit_table_1_dic['totalinvestedamount']) * 100
 
     return profit_table_1_dic
 
@@ -231,7 +236,7 @@ def generate_profit_table_2_dic(profit_table_1_dic, request):
     if profit_table_1_dic['totalinvestedamount'] == 0:
         profit_table_2_dic['netprofitpercentage'] = 0
     else:
-        profit_table_2_dic['netprofitpercentage'] = profit_table_2_dic['netprofit'] / profit_table_1_dic['totalinvestedamount']
+        profit_table_2_dic['netprofitpercentage'] = (profit_table_2_dic['netprofit'] / profit_table_1_dic['totalinvestedamount']) * 100
 
     return profit_table_2_dic
 
@@ -316,7 +321,7 @@ def profit_table_2_dic_format(profit_table_2_dic):
 def stockpage_context_handler(request):
     current_currency_id = 8
     stock_table_array_dic = generate_stock_table_array_dic(request, current_currency_id)
-    profit_table_1_dic = generate_profit_table_1_dic(stock_table_array_dic)
+    profit_table_1_dic = generate_profit_table_1_dic(stock_table_array_dic, current_currency_id)
     profit_table_2_dic = generate_profit_table_2_dic(profit_table_1_dic, request)
     currency_array_dic = generate_currency_dic()
 
