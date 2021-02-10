@@ -18,7 +18,7 @@
     		<div class="col-md-12">
 
           <!-- title -->
-          <div class="row">
+          <div class="row mt-3">
             <div class="col-md-12">
               <h3>
                 Portfolio.io
@@ -27,44 +27,39 @@
           </div>
 
           <hr>
-
+          
           <!-- registration form -->
           <div class="row">
             <div class="col-md-12">
               <form role="form" id="registration-form-1" method="post">
                 {% csrf_token %}
-        				<div class="form-group">
-
+        				<div class="form-group row mb-3">
+                  <div class="col-sm-2">
         					<label for="registration-username-1">
         						Username:
         					</label>
-
         					<input type="text" class="form-control" name="registration-username-2" id="registration-username-2">
-
+                  </div>
         				</div>
-        				<div class="form-group">
-
-        					<label for="registration-password-1">
-        						Password:
-        					</label>
-
-        					<input type="password" class="form-control" name="registration-password-2" id="registration-password-2">
-
+        				<div class="form-group row mb-3">
+                  <div class="col-sm-2">
+          					<label for="registration-password-1">
+          						Password:
+          					</label>
+          					<input type="password" class="form-control" name="registration-password-2" id="registration-password-2">
+                  </div>
         				</div>
-                <div class="form-group">
-
-        					<label for="registration-passwordconfirmation-1">
-        						Password Confirmation:
-        					</label>
-
-        					<input type="password" class="form-control" name="registration-passwordconfirmation-2" id="registration-passwordconfirmation-2">
-
+                <div class="form-group row mb-3">
+                  <div class="col-sm-2">
+          					<label for="registration-passwordconfirmation-1">
+          						Password Confirmation:
+          					</label>
+          					<input type="password" class="form-control" name="registration-passwordconfirmation-2" id="registration-passwordconfirmation-2">
+                  </div>
         				</div>
-
-        				<button type="submit" class="btn btn-primary" name="registration-registerbutton-1" value="register">
+        				<button type="submit" class="btn btn-primary mb-3" name="registration-registerbutton-1" value="register">
         					Register
         				</button>
-
         			</form>
             </div>
           </div>

@@ -5,7 +5,7 @@ from django.shortcuts import redirect
 
 from .backend.login_logic import authenticate_login_user
 from .backend.registration_logic import register_authenticate_login_user
-from .backend.stockpage_logic import logout_user, add_stock_handler, stockpage_context_handler
+from .backend.stockpage_logic import logout_user, add_stock_handler, stockpage_context_handler, edit_stock_handler, delete_stock_handler, add_profit_handler, change_to_aud_handler, change_to_local_handler
 
 # frontend logic for login
 def login(request):
@@ -53,7 +53,22 @@ def stockpage(request):
 
         elif "stockpage-addstockbutton-1" in post_request:
             result = add_stock_handler(request)
-            print(result)
+
+        elif "stockpage-editstockbutton-1" in post_request:
+            result = edit_stock_handler(request)
+
+        elif "stockpage-deletestockbutton-1" in post_request:
+            result = delete_stock_handler(request)
+
+        elif "stockpage-addprofitbutton-1" in post_request:
+            result = add_profit_handler(request)
+
+        elif "stockpage-viewaudbutton-1" in post_request:
+            result = change_to_aud_handler(request)
+
+        elif "stockpage-viewlocalbutton-1" in post_request:
+            result = change_to_local_handler(request)
 
     context = stockpage_context_handler(request)
+    
     return render(request, 'stockpage/stockpage.html', context)

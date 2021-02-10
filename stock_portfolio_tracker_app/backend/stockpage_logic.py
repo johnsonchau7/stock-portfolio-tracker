@@ -11,6 +11,7 @@ import datetime
 
 API_KEY = "QW5STDSFU45AUKEU"
 DEFAULT_CURRENCY_ID = 8
+CURRENCY_TOGGLE = True
 
 def logout_user(request):
     logout(request)
@@ -19,7 +20,7 @@ def logout_user(request):
 #True for valid stock, false for invalid stock
 def finance_api_get_stock_validator(stock_ticker):
     request = YahooFinancials(stock_ticker)
-    data = request.get_summary_data()[stock_ticker_uppercase]
+    data = request.get_summary_data()[stock_ticker]
 
     if data == None:
         return False
@@ -78,6 +79,25 @@ def stock_details_validator(user_id, currency_id, stock_ticker, average_price, q
 
     return True
 
+def profit_details_validator(user_id, currency_id, profit_from_sold, profit_from_dividends):
+    if not User.objects.filter(pk=user_id).exists():
+        print("USER")
+        return False
+
+    if not Currency.objects.filter(pk=currency_id).exists():
+        print("CURRENCY")
+        return False
+
+    if not is_float(profit_from_sold):
+        print("PROFITFROMSOLD")
+        return False
+
+    if not is_float(profit_from_dividends):
+        print("PROFITFROMDIVIDENDS")
+        return False
+
+    return True
+
 def create_stock_entry(request):
     post_request = request.POST
     user_id = request.user.id
@@ -93,6 +113,69 @@ def create_stock_entry(request):
     stock = Stocks(user_id=user, currency_id=currency, stock_ticker=stock_ticker, average_price=average_price, quantity=quantity, date_purchased=date_purchased)
 
     stock.save()
+
+def edit_stock_entry(request):
+    post_request = request.POST
+    user_id = request.user.id
+    stock_id = post_request["stockpage-editstockbutton-1"]
+    currency_id = post_request["stockpage-editcurrency-2"]
+    stock_ticker = post_request["stockpage-editstockticker-2"]
+    average_price = post_request["stockpage-editaverageprice-2"]
+    quantity = post_request["stockpage-editquantity-2"]
+    date_purchased = post_request["stockpage-editdatepurchased-2"]
+
+    stocks = Stocks.objects.filter(pk=stock_id)
+    user = User.objects.get(pk=user_id)
+    currency = Currency.objects.get(pk=currency_id)
+
+    if stocks.exists():
+        stock = stocks.first()
+        stock.user_id = user
+        stock.currency_id = currency
+        stock.stock_ticker = stock_ticker
+        stock.average_price = average_price
+        stock.quantity = quantity
+        stock.date_purchased = date_purchased
+        stock.save()
+        return True
+    else:
+        return False
+
+def delete_stock_entry(request):
+    post_request = request.POST
+    stock_id = post_request["stockpage-deletestockbutton-1"]
+    stocks = Stocks.objects.filter(pk=stock_id)
+
+    if stocks.exists():
+        stock = stocks.first()
+        stock.delete()
+        return True
+
+    else:
+        return False
+
+def add_profit_entry(request):
+    post_request = request.POST
+    user_id = request.user.id
+    currency_id = DEFAULT_CURRENCY_ID
+    profit_from_sold = post_request["stockpage-addprofitfromsold-2"]
+    profit_from_dividends = post_request["stockpage-addprofitfromdividends-2"]
+
+    user = User.objects.get(pk=user_id)
+    currency = Currency.objects.get(pk=DEFAULT_CURRENCY_ID)
+    profits = ProfitAdjustment.objects.filter(user_id=user)
+
+    if profits.exists():
+        profit = profits.first()
+        profit.profit_from_sold = profit_from_sold
+        profit.profit_from_dividends = profit_from_dividends
+        profit.save()
+    else:
+        profit = ProfitAdjustment(user_id=user, currency_id=currency, profit_from_sold=profit_from_sold, profit_from_dividends=profit_from_dividends)
+        profit.save()
+
+    return True
+
 
 def add_stock_handler(request):
     post_request = request.POST
@@ -110,6 +193,54 @@ def add_stock_handler(request):
     else:
         create_stock_entry(request)
         return True
+
+def edit_stock_handler(request):
+    post_request = request.POST
+    user_id = request.user.id
+    stock_id = post_request["stockpage-editstockbutton-1"]
+    currency_id = post_request["stockpage-editcurrency-2"]
+    stock_ticker = post_request["stockpage-editstockticker-2"]
+    average_price = post_request["stockpage-editaverageprice-2"]
+    quantity = post_request["stockpage-editquantity-2"]
+    date_purchased = post_request["stockpage-editdatepurchased-2"]
+
+    result = stock_details_validator(user_id, currency_id, stock_ticker, average_price, quantity, date_purchased)
+
+    if result == False:
+        return False
+    else:
+        res = edit_stock_entry(request)
+        return True
+
+def delete_stock_handler(request):
+    result = delete_stock_entry(request)
+    if result == False:
+        return False
+    else:
+        return True
+
+def add_profit_handler(request):
+    post_request = request.POST
+    user_id = request.user.id
+    currency_id = DEFAULT_CURRENCY_ID
+    profit_from_sold = post_request["stockpage-addprofitfromsold-2"]
+    profit_from_dividends = post_request["stockpage-addprofitfromdividends-2"]
+
+    result = profit_details_validator(user_id, currency_id, profit_from_sold, profit_from_dividends)
+
+    if result == False:
+        return False
+    else:
+        add_profit_entry(request)
+        return True
+
+def change_to_aud_handler(request):
+    global CURRENCY_TOGGLE
+    CURRENCY_TOGGLE = True
+
+def change_to_local_handler(request):
+    global CURRENCY_TOGGLE
+    CURRENCY_TOGGLE = False
 
 def finance_api_get_stock_price(stock_ticker):
     request = YahooFinancials(stock_ticker)
@@ -144,11 +275,10 @@ def finance_api_get_currency_id(stock_ticker):
 
     return currency_id
 
-def generate_stock_table_array_dic(request, current_currency_id):
+def generate_stock_table_array_dic(request):
     user_id = request.user.id
     stocks = Stocks.objects.filter(user_id=user_id)
     stock_table_array_dic = []
-
 
     for stock in stocks:
         dic = {
@@ -166,6 +296,11 @@ def generate_stock_table_array_dic(request, current_currency_id):
         }
 
         stock_currency_id = finance_api_get_currency_id(stock.stock_ticker)
+
+        current_currency_id = DEFAULT_CURRENCY_ID
+        if CURRENCY_TOGGLE == False:
+            current_currency_id = stock_currency_id
+
         user_exchange_rate = finance_api_get_exchange_rate(stock.currency_id.id, current_currency_id)
         exchange_rate = finance_api_get_exchange_rate(stock_currency_id, current_currency_id)
 
@@ -190,7 +325,7 @@ def generate_stock_table_array_dic(request, current_currency_id):
     return stock_table_array_dic
 
 
-def generate_profit_table_1_dic(stock_table_array_dic, current_currency_id):
+def generate_profit_table_1_dic(stock_table_array_dic):
 
     profit_table_1_dic = {
         'currencyid': DEFAULT_CURRENCY_ID,
@@ -201,6 +336,12 @@ def generate_profit_table_1_dic(stock_table_array_dic, current_currency_id):
     }
 
     for stock in stock_table_array_dic:
+        stock_currency_id = finance_api_get_currency_id(stock['stockticker'])
+
+        current_currency_id = DEFAULT_CURRENCY_ID
+        if CURRENCY_TOGGLE == False:
+            current_currency_id = stock_currency_id
+
         exchange_rate = finance_api_get_exchange_rate(current_currency_id, DEFAULT_CURRENCY_ID)
 
         profit_table_1_dic['totalinvestedamount'] += stock['stockinvestedamount'] * exchange_rate
@@ -259,7 +400,11 @@ def generate_currency_dic():
 
 def stock_table_array_dic_format(stock_table_array_dic):
     for stock in stock_table_array_dic:
-        currency_code = Currency.objects.get(pk=stock['currencyid']).currency_code
+        currency_code = None
+        if CURRENCY_TOGGLE == True:
+            currency_code = Currency.objects.get(pk=DEFAULT_CURRENCY_ID).currency_code
+        else:
+            currency_code = Currency.objects.get(pk=stock['currencyid']).currency_code
 
         money_format = "${:.2f} {}"
         signed_money_format = "{}${:.2f} {}"
@@ -319,9 +464,8 @@ def profit_table_2_dic_format(profit_table_2_dic):
 
 
 def stockpage_context_handler(request):
-    current_currency_id = 8
-    stock_table_array_dic = generate_stock_table_array_dic(request, current_currency_id)
-    profit_table_1_dic = generate_profit_table_1_dic(stock_table_array_dic, current_currency_id)
+    stock_table_array_dic = generate_stock_table_array_dic(request)
+    profit_table_1_dic = generate_profit_table_1_dic(stock_table_array_dic)
     profit_table_2_dic = generate_profit_table_2_dic(profit_table_1_dic, request)
     currency_array_dic = generate_currency_dic()
 

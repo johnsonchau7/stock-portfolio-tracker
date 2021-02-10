@@ -19,7 +19,7 @@
 
 
           <!-- title -->
-          <div class="row">
+          <div class="row mt-3">
             <div class="col-md-12">
               <h3>
                 Portfolio.io
@@ -34,29 +34,25 @@
             <div class="col-md-12">
               <form role="form" id="login-loginform-1" method="post">
                 {% csrf_token %}
-        				<div class="form-group">
-
-        					<label for="login-username-1">
-        						Username:
-        					</label>
-
-        					<input type="text" class="form-control" name="login-username-2" id="login-username-2">
-
+        				<div class="form-group row mb-3">
+                  <div class="col-sm-2">
+                    <label for="login-username-1">
+          						Username:
+          					</label>
+          					<input type="text" class="form-control" name="login-username-2" id="login-username-2">
+                  </div>
         				</div>
-        				<div class="form-group">
-
-        					<label for="login-password-1">
-        						Password:
-        					</label>
-
-        					<input type="password" class="form-control" name="login-password-2" id="login-password-2">
-
-        				</div>
-
-        				<button type="submit" class="btn btn-primary" name="login-loginbutton-1" value="login">
+        				<div class="form-group row mb-3">
+                  <div class="col-sm-2">
+                    <label for="login-password-1">
+                      Password:
+                    </label>
+                    <input type="password" class="form-control" name="login-password-2" id="login-password-2">
+                    </div>
+                  </div>
+        				<button type="submit" class="btn btn-primary mb-3" name="login-loginbutton-1" value="login">
         					Login
         				</button>
-
         			</form>
             </div>
           </div>
