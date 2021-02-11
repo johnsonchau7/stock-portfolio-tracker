@@ -1,7 +1,6 @@
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from yahoofinancials import YahooFinancials
 
 from ..models import Currency, Stocks, ProfitAdjustment
 
@@ -9,7 +8,7 @@ import requests
 import json
 import datetime
 
-API_KEY = "QW5STDSFU45AUKEU"
+API_KEY = "12c04ab3b4fd91c960bec8c39c7bb002"
 DEFAULT_CURRENCY_ID = 8
 CURRENCY_TOGGLE = True
 
@@ -19,10 +18,11 @@ def logout_user(request):
 
 #True for valid stock, false for invalid stock
 def finance_api_get_stock_validator(stock_ticker):
-    request = YahooFinancials(stock_ticker)
-    data = request.get_summary_data()[stock_ticker]
+    url = "https://financialmodelingprep.com/api/v3/quote-short/{}?apikey={}".format(stock_ticker, API_KEY)
+    request = requests.get(url)
+    data = request.json()[0]
 
-    if data == None:
+    if 'Error Message' in data:
         return False
     else:
         return True
@@ -243,10 +243,11 @@ def change_to_local_handler(request):
     CURRENCY_TOGGLE = False
 
 def finance_api_get_stock_price(stock_ticker):
-    request = YahooFinancials(stock_ticker)
-    data = request.get_stock_price_data()[stock_ticker]
-    current_price = float(data['regularMarketPrice'])
-
+    url = "https://financialmodelingprep.com/api/v3/quote-short/{}?apikey={}".format(stock_ticker, API_KEY)
+    request = requests.get(url)
+    data = request.json()[0]
+    current_price = data['price']
+    
     return current_price
 
 def finance_api_get_exchange_rate(from_currency_id, to_currency_id):
@@ -256,19 +257,18 @@ def finance_api_get_exchange_rate(from_currency_id, to_currency_id):
     if from_currency_code == to_currency_code:
         return 1
     else:
-        if from_currency_code == "USD":
-            from_currency_code = ""
-
-        currency_code_for_request = "{}{}=X".format(from_currency_code, to_currency_code)
-        request = YahooFinancials(currency_code_for_request)
-        data = request.get_summary_data()[currency_code_for_request]
-        exchange_rate = data['ask']
+        currency_code_for_request = "{}{}".format(from_currency_code, to_currency_code)
+        url = "https://financialmodelingprep.com/api/v3/quote/{}?apikey={}".format(currency_code_for_request, API_KEY)
+        request = requests.get(url)
+        data = request.json()[0]
+        exchange_rate = float(data['price'])
 
         return exchange_rate
 
 def finance_api_get_currency_id(stock_ticker):
-    request = YahooFinancials(stock_ticker)
-    data = request.get_stock_price_data()[stock_ticker]
+    url = "https://financialmodelingprep.com/api/v3/profile/{}?apikey={}".format(stock_ticker, API_KEY)
+    request = requests.get(url)
+    data = request.json()[0]
     currency_code = data['currency']
 
     currency_id = Currency.objects.filter(currency_code=currency_code)[0].id
@@ -462,16 +462,30 @@ def profit_table_2_dic_format(profit_table_2_dic):
 
     return profit_table_2_dic
 
-
+import time
 def stockpage_context_handler(request):
+    start = time.time()
     stock_table_array_dic = generate_stock_table_array_dic(request)
+    print("1 - {}".format(time.time()-start))
+    start = time.time()
     profit_table_1_dic = generate_profit_table_1_dic(stock_table_array_dic)
+    print("2 - {}".format(time.time()-start))
+    start = time.time()
     profit_table_2_dic = generate_profit_table_2_dic(profit_table_1_dic, request)
+    print("3 - {}".format(time.time()-start))
+    start = time.time()
     currency_array_dic = generate_currency_dic()
+    print("4 - {}".format(time.time()-start))
 
+    start = time.time()
     stock_table_array_dic_formatted = stock_table_array_dic_format(stock_table_array_dic)
+    print("5 - {}".format(time.time()-start))
+    start = time.time()
     profit_table_1_dic_formatted = profit_table_1_dic_format(profit_table_1_dic)
+    print("6 - {}".format(time.time()-start))
+    start = time.time()
     profit_table_2_dic_formatted = profit_table_2_dic_format(profit_table_2_dic)
+    print("7 - {}".format(time.time()-start))
 
     context = {
         'stocktable': stock_table_array_dic_formatted,
