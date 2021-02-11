@@ -10,8 +10,5 @@
   Infrastructure architecture: https://drive.google.com/file/d/1z3WFHTIVyuj7guWQ1AFTdzIJWMlGstcn/view?usp=sharing
 </p>
 <p>
-  Infrastructure architecture: https://drive.google.com/file/d/1z3WFHTIVyuj7guWQ1AFTdzIJWMlGstcn/view?usp=sharing
-</p>
-<p>
   Business process model: https://drive.google.com/file/d/1Ty2A-OQylM08h7Q-Ta-NNBb90Q42ucDE/view?usp=sharing
 </p>
