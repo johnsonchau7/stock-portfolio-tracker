@@ -1,7 +1,7 @@
 # Portfolio.io
 
-Stock portfolio tracker as a web application. Track your investments in real time and view its performance
-- Create and log into your account
+Stock portfolio tracker as a web application. Track your investments in real time and view its performance.
+- Register and log into your account
 - Add, edit and delete your stock holdings
 - View your investment portfolio performance
 
@@ -17,6 +17,7 @@ Stock portfolio tracker as a web application. Track your investments in real tim
 - Bootstrap - frontend
 - Postgresql - database
 - Heroku - host database and web app
+- FinancialModelingPrep API - real time stock price data
 
 ## Software development process
 - [Software requirement specification](https://docs.google.com/document/d/1803OGz-IE3CEwSSdh_E-n9_yOen2SvtFqQjEKZn7dBI/edit?usp=sharing)
