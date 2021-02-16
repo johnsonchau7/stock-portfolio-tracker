@@ -282,7 +282,7 @@
                             					<label for="stockpage-editcurrency-1">
                             						Currency:
                             					</label>
-                                      <select class="form-select row mb-3" name="stockpage-editcurrency-2" id="stockpage-editcurrency-2">
+                                      <select class="form-select" name="stockpage-editcurrency-2" id="stockpage-editcurrency-2">
                                         {% for currency in currencytable %}
                                           {% if currency.id == stock.currencyid %}
                                             <option value="{{ currency.id }}" selected>{{ currency.currencycode }}</option>
