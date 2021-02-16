@@ -9,7 +9,7 @@ Stock portfolio tracker as a web application. Track your investments in real tim
 
 [Portfolio.io - demo on Heroku](https://stock-portfolio-tracker-io.herokuapp.com/)
 
-![Portfolio.io](/photos/screenshot1.png)
+![Portfolio.io](https://raw.githubusercontent.com/johnsonchau7/stock-portfolio-tracker/master/photos/screenshot1.png)
 
 ## Built with
 - Python - core programming language
