@@ -247,7 +247,7 @@ def finance_api_get_stock_price(stock_ticker):
     request = requests.get(url)
     data = request.json()[0]
     current_price = data['price']
-    
+
     return current_price
 
 def finance_api_get_exchange_rate(from_currency_id, to_currency_id):
@@ -279,8 +279,10 @@ def generate_stock_table_array_dic(request):
     user_id = request.user.id
     stocks = Stocks.objects.filter(user_id=user_id)
     stock_table_array_dic = []
-
+    counter = 0
     for stock in stocks:
+        if counter >= 2:
+            break
         dic = {
             'stockid': 0,
             'currencyid': 0,
@@ -321,6 +323,7 @@ def generate_stock_table_array_dic(request):
             dic['stockprofitpercentage'] = (dic['stockprofit'] / dic['stockinvestedamount']) * 100
 
         stock_table_array_dic.append(dic)
+        counter += 1
 
     return stock_table_array_dic
 
